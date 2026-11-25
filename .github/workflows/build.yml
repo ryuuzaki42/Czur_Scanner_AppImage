@@ -59,14 +59,14 @@ jobs:
 
               cp README.md Czur_Scanner_et24_25pro_AppImage/
               cp AppRun Czur_Scanner_et24_25pro_AppImage/
+              cp Czur_Scanner_et24_25pro.pmg Czur_Scanner_et24_25pro_AppImage/
               cd Czur_Scanner_et24_25pro_AppImage/
 
               # Move files from up from /tmp/
               mv tmp/opt/ ./
               rmdir tmp/
 
-              # Copy icon e shortcut
-              cp usr/share/icons/czurscanner.ico Czur_Scanner_et24_25pro.ico
+              # Copy shortcut
               cp usr/share/applications/scanner.desktop Czur_Scanner_et24_25pro.desktop 
 
               # Change name to Czur_Scanner_et24_25pro
