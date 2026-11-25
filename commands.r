@@ -43,3 +43,6 @@ cd opt/apps/scanner/
 
 bash -c 'xrdb -query | grep -q "Xft.dpi"  || echo "Xft.dpi:  96" | xrdb -merge; env LD_PRELOAD=./libczurusb-1.0.so GDK_BACKEND=x11 ./CzurScanner %F'
 
+## Added permission
+chmod +x AppRun
+#cat AppRun
