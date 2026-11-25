@@ -1,0 +1,98 @@
+name: Create new release
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "!**"
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    #runs-on: ubuntu-latest
+
+    steps:
+          - uses: actions/checkout@v6
+          - name: Install fuse and libfuse2
+            run: sudo apt install fuse libfuse2
+
+          - name: Get appimagetool
+            run: |
+              set -x
+              version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
+              echo "version_go_appimage: $version_go_appimage"
+              wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
+              chmod +x appimagetool-x86_64.AppImage
+              pwd; ls -lah
+
+          - name: Get Ventoy
+            run: |
+              set -x
+              version=$(grep -o "Ventoy:.*" README.md | cut -d ' ' -f2)
+              echo "Ventoy version: $version"
+              
+              mkdir squashfs-root/
+              cd squashfs-root/
+
+              wget "https://github.com/ventoy/Ventoy/releases/download/v$version/ventoy-$version-linux.tar.gz"
+              tar -xvf "ventoy-$version-linux.tar.gz"
+
+              rm -v "ventoy-$version-linux.tar.gz"
+              pwd; ls -lah
+
+          - name: Make Appimage
+            run: |
+              set -x
+              tag=1 #1
+              version=$(grep -o "Ventoy:.*" README.md | cut -d ' ' -f2)
+              echo "Ventoy version: $version - Tag: $tag"
+
+              cp README.md squashfs-root/
+              cd squashfs-root/
+
+              echo '#!/bin/bash
+              HERE="$(dirname "$(readlink -f "${0}")")"
+              if [ "$(id -u)" != "0" ]; then
+                  cat "$HERE/README.md"
+                  echo -e "\n # Error - Run this AppImage as root! #\n"
+                  exit 1
+              fi
+
+              EXEC="${HERE}/ventoy/VentoyGUI.x86_64"
+              exec "${EXEC}"' > AppRun
+
+              sed -i "s/ventoy/ventoy-$version/" AppRun
+              chmod +x AppRun
+              cat AppRun
+
+              echo '[Desktop Entry]
+              Name=Ventoy
+              Exec=VentoyGUI.x86_64
+              Icon=Ventoy
+              Type=Application
+              Categories=Utility' > Ventoy.desktop
+              chmod +x Ventoy.desktop
+              cat Ventoy.desktop
+
+              ln -s ventoy-$version/WebUI/static/img/VentoyLogo.png Ventoy.png
+              pwd; ls -lah
+
+              cd ../
+              ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage squashfs-root/
+              pwd; ls -lah
+
+              fileName=$(ls Ventoy*.AppImage)
+              echo "fileName: $fileName"
+              md5sum "$fileName" > "${fileName}.md5"
+              pwd; ls -lah
+
+          - uses: xresloader/upload-to-github-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              file: "Ventoy*.AppImage; Ventoy*.zsync; Ventoy*.md5"
+              #overwrite: true
+              verbose: true
+              draft: false
+              default_release_name: "Ventoy V in AppImage"
