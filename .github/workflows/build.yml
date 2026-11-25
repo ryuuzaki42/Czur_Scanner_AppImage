@@ -60,6 +60,22 @@ jobs:
               cp README.md Czur_Scanner_et24_25pro_AppImage/
               cd Czur_Scanner_et24_25pro_AppImage/
 
+              # Move files from up from /tmp/
+              mv tmp/opt/ ./
+              rmdir tmp/
+
+              # Copy icon e shortcut
+              cp usr/share/icons/czurscanner.ico Czur_Scanner_et24_25pro.ico
+              cp usr/share/applications/scanner.desktop Czur_Scanner_et24_25pro.desktop 
+
+              # Change name to Czur_Scanner_et24_25pro
+              sed 's/Name=CzurScanner/Name=Czur_Scanner_et24_25pro_AppImage/' Czur_Scanner_et24_25pro.desktop
+
+              # Change ico to Czur_Scanner_et24_25pro
+              sed 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro.ico/' Czur_Scanner_et24_25pro.desktop 
+
+              cat Czur_Scanner_et24_25pro.desktop
+
               echo '#!/bin/bash
               HERE="$(dirname "$(readlink -f "${0}")")"
               if [ "$(id -u)" != "0" ]; then
