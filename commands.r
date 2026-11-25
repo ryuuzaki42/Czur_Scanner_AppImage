@@ -46,3 +46,12 @@ bash -c 'xrdb -query | grep -q "Xft.dpi"  || echo "Xft.dpi:  96" | xrdb -merge; 
 ## Added permission
 chmod +x AppRun
 #cat AppRun
+
+## Download appimagetool
+cd ../
+
+version_go_appimage=$(wget -q -O - https://api.github.com/repos/probonopd/go-appimage/releases | grep "\"name.*appimagetool-.*-x86_64.AppImage\"" | head -n 1 | cut -d '-' -f2)
+echo "version_go_appimage: $version_go_appimage"
+wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
+chmod +x appimagetool-x86_64.AppImage
+
