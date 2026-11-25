@@ -59,7 +59,7 @@ jobs:
 
               cp README.md Czur_Scanner_et24_25pro_AppImage/
               cp AppRun Czur_Scanner_et24_25pro_AppImage/
-              cp Czur_Scanner_et24_25pro.pmg Czur_Scanner_et24_25pro_AppImage/
+              cp Czur_Scanner_et24_25pro.png Czur_Scanner_et24_25pro_AppImage/
               cd Czur_Scanner_et24_25pro_AppImage/
 
               # Move files from up from /tmp/
