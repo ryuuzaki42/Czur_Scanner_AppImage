@@ -1,5 +1,5 @@
 
-## Download
+## Download deb
 wget https://resource.czur-files.com/software/linux/differ/scanner_1.0.20250413_amd64_en_2512021.deb
 
 ## Extract deb
@@ -22,7 +22,7 @@ mv tmp/opt/ ./
 rmdir tmp/
 
 ## Copy icon e shortcut
-cp usr/share/icons/czurscanner.ico .
+cp usr/share/icons/czurscanner.ico Czur_Scanner_et24_25pro.ico
 cp usr/share/applications/scanner.desktop .
 
 ## Create Apprun
