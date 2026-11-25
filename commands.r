@@ -55,3 +55,7 @@ echo "version_go_appimage: $version_go_appimage"
 wget -q "https://github.com/probonopd/go-appimage/releases/download/continuous/appimagetool-$version_go_appimage-x86_64.AppImage" -O appimagetool-x86_64.AppImage
 chmod +x appimagetool-x86_64.AppImage
 
+## Make AppImage
+version="1.0.20250413"
+
+ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage Czur_Scanner_et24_25pro_AppImage/
