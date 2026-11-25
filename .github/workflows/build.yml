@@ -58,6 +58,7 @@ jobs:
               echo "Czur_Scanner_et24_25pro_AppImage version: $version - Tag: $tag"
 
               cp README.md Czur_Scanner_et24_25pro_AppImage/
+              cp AppRun Czur_Scanner_et24_25pro_AppImage/
               cd Czur_Scanner_et24_25pro_AppImage/
 
               # Move files from up from /tmp/
@@ -75,19 +76,6 @@ jobs:
               sed 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro/' Czur_Scanner_et24_25pro.desktop 
 
               cat Czur_Scanner_et24_25pro.desktop
-
-              echo '#!/bin/bash
-              HERE="$(dirname "$(readlink -f "${0}")")"
-              cd "$HERE"/
-
-              cd opt/apps/scanner/
-
-              bash -c \'xrdb -query | grep -q "Xft.dpi"  || echo "Xft.dpi:  96" | xrdb -merge; env LD_PRELOAD=./libczurusb-1.0.so GDK_BACKEND=x11 ./CzurScanner %F\'
-
-              ' > AppRun
-
-              chmod +x AppRun
-              cat AppRun
 
               pwd; ls -lah
 
