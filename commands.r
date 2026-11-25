@@ -25,4 +25,11 @@ rmdir tmp/
 cp usr/share/icons/czurscanner.ico Czur_Scanner_et24_25pro.ico
 cp usr/share/applications/scanner.desktop .
 
-## Create Apprun
+## Edit shortcut
+Name=CzurScanner
+Name=Czur_Scanner_et24_25pro_AppImage
+
+Icon=/opt/apps/scanner/ico/CzurScanner.ico
+Icon=Czur_Scanner_et24_25pro.ico
+
+## Create AppRun
