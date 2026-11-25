@@ -76,7 +76,7 @@ jobs:
               sed -i 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro/' Czur_Scanner_et24_25pro.desktop 
 
               # Change command
-              sed 's/Exec=bash.*/Exec=CzurScanner/' Czur_Scanner_et24_25pro.desktop
+              sed -i 's/Exec=bash.*/Exec=CzurScanner/' Czur_Scanner_et24_25pro.desktop
               cat Czur_Scanner_et24_25pro.desktop
               pwd; ls -lah
 
