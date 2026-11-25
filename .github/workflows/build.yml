@@ -72,7 +72,7 @@ jobs:
               sed 's/Name=CzurScanner/Name=Czur_Scanner_et24_25pro_AppImage/' Czur_Scanner_et24_25pro.desktop
 
               # Change ico to Czur_Scanner_et24_25pro
-              sed 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro.ico/' Czur_Scanner_et24_25pro.desktop 
+              sed 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro/' Czur_Scanner_et24_25pro.desktop 
 
               cat Czur_Scanner_et24_25pro.desktop
 
@@ -91,23 +91,13 @@ jobs:
               chmod +x AppRun
               cat AppRun
 
-              echo '[Desktop Entry]
-              Name=Ventoy
-              Exec=VentoyGUI.x86_64
-              Icon=Ventoy
-              Type=Application
-              Categories=Utility' > Ventoy.desktop
-              chmod +x Ventoy.desktop
-              cat Ventoy.desktop
-
-              ln -s ventoy-$version/WebUI/static/img/VentoyLogo.png Ventoy.png
               pwd; ls -lah
 
               cd ../
-              ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage squashfs-root/
+              ARCH=x86_64 VERSION="${version}-1_JB" ./appimagetool-x86_64.AppImage Czur_Scanner_et24_25pro/
               pwd; ls -lah
 
-              fileName=$(ls Ventoy*.AppImage)
+              fileName=$(ls Czur_Scanner_et24_25pro*.AppImage)
               echo "fileName: $fileName"
               md5sum "$fileName" > "${fileName}.md5"
               pwd; ls -lah
@@ -116,8 +106,8 @@ jobs:
             env:
               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-              file: "Ventoy*.AppImage; Ventoy*.zsync; Ventoy*.md5"
+              file: "Czur_Scanner_et24_25pro*.AppImage; Czur_Scanner_et24_25pro*.zsync; Czur_Scanner_et24_25pro*.md5"
               #overwrite: true
               verbose: true
               draft: false
-              default_release_name: "Ventoy V in AppImage"
+              default_release_name: "Czur_Scanner_et24_25pro V in AppImage"
