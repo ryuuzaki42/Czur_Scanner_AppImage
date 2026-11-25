@@ -26,30 +26,39 @@ jobs:
               chmod +x appimagetool-x86_64.AppImage
               pwd; ls -lah
 
-          - name: Get Ventoy
+          - name: Get Czur_Scanner_et24_25pro
             run: |
               set -x
-              version=$(grep -o "Ventoy:.*" README.md | cut -d ' ' -f2)
-              echo "Ventoy version: $version"
-              
-              mkdir squashfs-root/
-              cd squashfs-root/
+              version=$(grep -o "Czur_Scanner_et24_25pro_AppImage:.*" README.md | cut -d ' ' -f2)
+              echo "Czur_Scanner_et24_25pro_AppImage version: $version"
 
-              wget "https://github.com/ventoy/Ventoy/releases/download/v$version/ventoy-$version-linux.tar.gz"
-              tar -xvf "ventoy-$version-linux.tar.gz"
+              # Download deb
+              wget -q https://resource.czur-files.com/software/linux/differ/scanner_${version}_amd64_en_2512021.deb
 
-              rm -v "ventoy-$version-linux.tar.gz"
+              # Extract deb
+              ar x scanner_1.0.20250413_amd64_en_2512021.deb
+
+              # Delete files not needed
+              rm scanner_1.0.20250413_amd64_en_2512021.deb control.tar.xz debian-binary
+
+              # Create folder
+              mkdir Czur_Scanner_et24_25pro_AppImage/
+
+              # Extract data
+              tar -xJf data.tar.xz -C Czur_Scanner_et24_25pro_AppImage/
+
+              rm data.tar.xz
               pwd; ls -lah
 
           - name: Make Appimage
             run: |
               set -x
               tag=1 #1
-              version=$(grep -o "Ventoy:.*" README.md | cut -d ' ' -f2)
-              echo "Ventoy version: $version - Tag: $tag"
+              version=$(grep -o "Czur_Scanner_et24_25pro_AppImage:.*" README.md | cut -d ' ' -f2)
+              echo "Czur_Scanner_et24_25pro_AppImage version: $version - Tag: $tag"
 
-              cp README.md squashfs-root/
-              cd squashfs-root/
+              cp README.md Czur_Scanner_et24_25pro_AppImage/
+              cd Czur_Scanner_et24_25pro_AppImage/
 
               echo '#!/bin/bash
               HERE="$(dirname "$(readlink -f "${0}")")"
