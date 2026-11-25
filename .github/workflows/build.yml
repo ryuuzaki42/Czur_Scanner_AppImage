@@ -78,16 +78,14 @@ jobs:
 
               echo '#!/bin/bash
               HERE="$(dirname "$(readlink -f "${0}")")"
-              if [ "$(id -u)" != "0" ]; then
-                  cat "$HERE/README.md"
-                  echo -e "\n # Error - Run this AppImage as root! #\n"
-                  exit 1
-              fi
+              cd "$HERE"/
 
-              EXEC="${HERE}/ventoy/VentoyGUI.x86_64"
-              exec "${EXEC}"' > AppRun
+              cd opt/apps/scanner/
 
-              sed -i "s/ventoy/ventoy-$version/" AppRun
+              bash -c 'xrdb -query | grep -q "Xft.dpi"  || echo "Xft.dpi:  96" | xrdb -merge; env LD_PRELOAD=./libczurusb-1.0.so GDK_BACKEND=x11 ./CzurScanner %F'
+
+              ' > AppRun
+
               chmod +x AppRun
               cat AppRun
 
