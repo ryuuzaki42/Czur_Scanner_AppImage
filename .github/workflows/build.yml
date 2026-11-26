@@ -29,7 +29,9 @@ jobs:
           - name: Try find libcrypt
             run: |
               set -x
-              find / | grep "libcrypt.so"
+              #find /lib/ | grep "libcrypt.so"
+              find /usr/ -name "libcrypt.so*" 2>/dev/null
+              find /lib/ -name "libcrypt.so*" 2>/dev/null
               exit
 
           - name: Get Czur_Scanner_et24_25pro
