@@ -26,6 +26,12 @@ jobs:
               chmod +x appimagetool-x86_64.AppImage
               pwd; ls -lah
 
+          - name: Try find libcrypt
+            run: |
+              set -x
+              find / | grep "libcrypt.so"
+              exit
+
           - name: Get Czur_Scanner_et24_25pro
             run: |
               set -x
