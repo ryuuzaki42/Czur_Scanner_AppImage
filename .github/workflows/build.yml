@@ -50,7 +50,7 @@ jobs:
               rm data.tar.xz
               pwd; ls -lah
 
-          - name: Make Appimage
+          - name: Make AppImage
             run: |
               set -x
               tag=1 #1
@@ -60,6 +60,7 @@ jobs:
               cp README.md Czur_Scanner_et24_25pro_AppImage/
               cp AppRun Czur_Scanner_et24_25pro_AppImage/
               cp Czur_Scanner_et24_25pro.png Czur_Scanner_et24_25pro_AppImage/
+
               cd Czur_Scanner_et24_25pro_AppImage/
 
               # Move files from up from /tmp/
@@ -72,7 +73,7 @@ jobs:
               # Change name to Czur_Scanner_et24_25pro
               sed -i 's/Name=CzurScanner/Name=Czur_Scanner_et24_25pro_AppImage/' Czur_Scanner_et24_25pro.desktop
 
-              # Change ico to Czur_Scanner_et24_25pro
+              # Change icon to Czur_Scanner_et24_25pro
               sed -i 's/Icon=\/opt\/apps\/scanner\/ico\/CzurScanner.ico/Icon=Czur_Scanner_et24_25pro/' Czur_Scanner_et24_25pro.desktop 
 
               # Change command
