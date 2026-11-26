@@ -26,14 +26,6 @@ jobs:
               chmod +x appimagetool-x86_64.AppImage
               pwd; ls -lah
 
-          - name: Try find libcrypt
-            run: |
-              set -x
-              #find /lib/ | grep "libcrypt.so"
-              find /usr/ -name "libcrypt.so*" 2>/dev/null
-              find /lib/ -name "libcrypt.so*" 2>/dev/null
-              exit
-
           - name: Get Czur_Scanner_et24_25pro
             run: |
               set -x
@@ -74,6 +66,10 @@ jobs:
               # Move files from up from /tmp/
               mv tmp/opt/ ./
               rmdir tmp/
+
+              # Added libcrypt - Fedora
+              find /lib/ -name "libcrypt.so" 2>/dev/null
+              cp /lib/x86_64-linux-gnu/libcrypt.so* opt/apps/scanner/
 
               # Copy shortcut
               cp usr/share/applications/scanner.desktop Czur_Scanner_et24_25pro.desktop 
