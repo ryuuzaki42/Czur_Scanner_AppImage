@@ -68,8 +68,10 @@ jobs:
               rmdir tmp/
 
               # Added libcrypt - Fedora
-              find /lib/ -name "libcrypt.so" 2>/dev/null
+              find /lib/ | grep -i -E "libcrypt.so|libdbus-1.so|libfreetype.so" 2>/dev/null
               cp /lib/x86_64-linux-gnu/libcrypt.so* opt/apps/scanner/
+              cp /lib/x86_64-linux-gnu/libdbus-1.so* opt/apps/scanner/
+              cp /lib/x86_64-linux-gnu/libfreetype.so* opt/apps/scanner/
 
               # Copy shortcut
               cp usr/share/applications/scanner.desktop Czur_Scanner_et24_25pro.desktop 
